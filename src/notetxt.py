@@ -1,6 +1,6 @@
 from collections import UserDict
 import os
-from main import Field
+from address_book import Field
 import pickle
 from address_book import read_from_file
 
@@ -42,7 +42,7 @@ class Notepad(Field):
 #----можна показати список, видалити зі списку, при правильному виході все зберігається, --------------
 #----можливо терба зробити зберігання після кожної зміни списку(додавання видалення)
 class Notepad_dict(UserDict):
-    filename=os.path.join("files", "notepad.bin")
+    filename=os.path.join("files", "save_notetxt.bin")
 
     def add_notepad(self):
         print("введіть назву файла")
