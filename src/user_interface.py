@@ -3,7 +3,7 @@
 """
 
 import address_book
-import notes
+# import notes
 import files
 
 RED = "\033[91m"
@@ -180,4 +180,6 @@ def start_bot():
         else:
             print(f"{RED}Invalid command, please enter one of: 'record contact', 'record note', 'opening a text document', 'interacting with_applications'.{RESET}")
 
-start_bot()
+
+if __name__ == "__main__":
+    start_bot()
