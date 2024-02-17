@@ -3,6 +3,7 @@ from datetime import date, datetime
 import uuid
 import re
 
+print("s")
 
 class Field:
     mandatory = False
