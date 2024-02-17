@@ -87,17 +87,17 @@ except Exception:
 #-----------------ця частина робится один раз, створюються всі необхідні папки---
 # ---- можливо її треба запустити в setap
 
-#topics= ["video", "audio", "python", "photos","notes"]
+topics= ["video", "audio", "python", "photos","notes"]
 
-# if os.path.exists(path_different):
-#    pass
-# else:
-#    os.mkdir(path_different)
-#    [os.mkdir(os.path.join(path_different, d)) for d in  topics]
-# path_notes=os.path.join(path_different, "notes")
-#
-# dir_notes = [os.path.splitext(p)[0] for p in os.listdir(path_notes)]
-# print(dir_notes)
+if os.path.exists(path_different):
+   pass
+else:
+   os.mkdir(path_different)
+   [os.mkdir(os.path.join(path_different, d)) for d in  topics]
+path_notes=os.path.join(path_different, "notes")
+
+dir_notes = [os.path.splitext(p)[0] for p in os.listdir(path_notes)]
+print(dir_notes)
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
