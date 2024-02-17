@@ -16,7 +16,7 @@ PURPURE = "\033[35m"
 
 
 def help_info():
-    print(f'    List of comand:\n'
+    print(f'    {PURPURE}List of comand:\n'
             f'-{YELLOW} record contact {BLUE} - Interacting with contacts.\n'
             f'-{YELLOW} record note {BLUE} - Interacting with notes.\n'
             f'-{YELLOW} opening a text document {BLUE} - Opening a text document for your notes.\n'
@@ -25,7 +25,7 @@ def help_info():
             f'-{YELLOW} exit  {BLUE} - Exit from program.\n{RESET}')
 
 def help_record_contact():
-    print(f"    List of comand for 'record_contacts':\n"
+    print(f"   {PURPURE}List of comand for 'record_contacts':\n"
             f"-{YELLOW} 'add' {BLUE} - add contact to phone book\n"
             f"-{YELLOW} 'all' {BLUE} - show all records\n"
             f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name\n"
@@ -36,7 +36,7 @@ def help_record_contact():
             f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
 
 def help_record_note():
-    print(f"    List of comand for 'record_contacts':\n"
+    print(f"   {PURPURE}List of comand for 'record_contacts':\n"
             f"-{YELLOW} 'add' {BLUE} - add contact to phone book\n"
             f"-{YELLOW} 'all' {BLUE} - show all records\n"
             f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name\n"
@@ -58,7 +58,7 @@ def help_opening_a_text_document():
             f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
 
 def help_interacting_with_applications():
-    print(f"    List of comand for 'record_contacts':\n"
+    print(f"   {PURPURE}List of comand for 'record_contacts':\n"
             f"-{YELLOW} 'add' {BLUE} - add contact to phone book\n"
             f"-{YELLOW} 'all' {BLUE} - show all records\n"
             f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name\n"
