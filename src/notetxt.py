@@ -1,6 +1,6 @@
 from collections import UserDict
 import os
-from main import Field
+from address_book import Field
 import pickle
 from address_book import read_from_file
 
@@ -42,7 +42,7 @@ class Notepad(Field):
 #----можна показати список, видалити зі списку, при правильному виході все зберігається, --------------
 #----можливо терба зробити зберігання після кожної зміни списку(додавання видалення)
 class Notepad_dict(UserDict):
-    filename=os.path.join("files", "notepad.bin")
+    filename=os.path.join("..\\files", "save_notetxt.bin")
 
     def add_notepad(self):
         print("введіть назву файла")
@@ -68,7 +68,7 @@ class Notepad_dict(UserDict):
 
 
 
-    def save_to_file(self):
+    def save_to_filetxt(self):
        with open(self.filename, 'wb') as fh:
            pickle.dump(self, fh)
 
@@ -77,7 +77,7 @@ class Notepad_dict(UserDict):
 
 path_different="my_dir"
 
-filename=os.path.join("files", "notepad.bin")
+filename=os.path.join("..\\files", "save_notetxt.bin")
 try:
     notepad_dict = read_from_file(filename)
 except Exception:
@@ -97,7 +97,7 @@ else:
 path_notes=os.path.join(path_different, "notes")
 
 dir_notes = [os.path.splitext(p)[0] for p in os.listdir(path_notes)]
-print(dir_notes)
+
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
@@ -113,7 +113,7 @@ def start_bot():
         if data=="":
             data = input(">").lower()
         if data == "exit" :
-            notepad_dict.save_to_file()
+            notepad_dict.save_to_filetxt()
             break
         elif data == "look all notebooks" :
             notepad_dict.get_all()
