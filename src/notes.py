@@ -112,6 +112,7 @@ class NoteBook(UserDict):
                     found.append(self.data[note])  # для тестування замінити ці коментарі в цих 2 рядках місцями)
         return f'Found by tag: {found}'
 
+
     def remove_note(self, note_it_to_del) -> None:
         if note_it_to_del.id in self.data:
             del self.data[note_it_to_del.id]
