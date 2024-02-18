@@ -104,8 +104,6 @@ class Record:
 
             days = dbirt - current_datetime
             print(f"{days.days} days before birthday of {self.name}")
-        else:
-            print(f"birthday of {self.name} is unknown")
 
     def add_phone(self, phone_s):
         try:
@@ -234,6 +232,21 @@ class AddressBook(UserDict):
                 del self[nam]
                 return nam
         return None
+    
+    def find_birthday_people(self):
+        birthday_people_list = list()
+        for name, record in self.data.items():            
+            current_datetime = datetime.now().date()
+            dbirt = datetime(current_datetime.year, record.birthday.date.month, record.birthday.date.day).date()
+            if current_datetime == dbirt:
+                sp = f"  {GREEN}{'; '.join(p.value for p in record.phones)}" if record.phones else ""
+                sb = f"  {GREEN}{record.birthday}{RESET}" if record.birthday else ""
+                se = f"  {GREEN}{record.email}{RESET}" if record.email else ""    
+                birthday_people_list.append(f"{GREEN} {record.name.value:<8} {sb:<12} {sp:<12} {se:<20}")   
+                          
+        if (birthday_people_list):
+            print(f"{GREEN}Today is the birthday of some of your friends, congratulate them:")
+            print(f"{GREEN}{'\n'.join(person for person in birthday_people_list)}")
 
     def save_to_file(self, filename):
         with open(filename, 'wb') as fh:

@@ -140,7 +140,17 @@ class NoteBook(UserDict):
         return deserialized
 
 if __name__ == '__main__':
+    filename_address_book = "files\\save_contacts.bin"
+    filename_note_book = "files\\save_notes.bin"
 
+    try:
+        note = NoteBook.load_pickle(filename_note_book)
+    except Exception:
+        note = NoteBook()
+
+    print(note.find_by_content('game'))
+
+"""
     n1 = Note('1st cc', ['music', 'legends'])
     n2 = Note('2ndc', ['lali'])
     # n2.edit_content('"We Are the Champions" #is a song by the British rock band Queen, released from the band"s sixth album News of the World (1977). Written by lead singer Freddie Mercury, it remains among rock"s most recognisable anthems.')
@@ -246,3 +256,4 @@ if __name__ == '__main__':
     # print(b1.find_by_tag('mus'))
     # print(b1.show_all())
     # print(b1)
+"""
