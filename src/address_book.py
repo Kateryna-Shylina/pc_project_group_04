@@ -68,19 +68,19 @@ class Address(Field):
 
 class Email(Field):
     def __init__(self, value):    
-        result = re.search(r"[a-zA-Z][a-zA-Z0-9._]+@[a-z]{2,}\.[a-z]{2,}", value)
-        if (result):
+        result = re.findall(r"[a-zA-Z][a-zA-Z0-9._]+@[a-z]{2,}\.[a-z]{2,}", value)
+        if result[0] == value:
             self.value = value
         else:
-            raise ValueError("Wrong email address")
+            raise ValueError
 
 
 class Record:
     def __init__(self, name, birthday=None):
         self.name = Name(name)
         self.phones = []
-        self.address = ''
-        self.email = ''
+        self.address = None
+        self.email = None
         self.birthday = birthday
         if birthday:
             try:
@@ -148,15 +148,20 @@ class Record:
                 return phone
             
     def add_address(self, address_s):
-        self.address = address_s
+        self.address = Address(address_s)
 
     def add_email(self, email_s):
-        self.address = email_s
+        try:
+            self.email = Email(email_s)
+        except  ValueError:
+            print(f'{RED}{email_s}{YELLOW} -  Wrong email address{RESET}')
 
     def __str__(self):
         sp = f"{BLUE} phones:{YELLOW} {'; '.join(p.value for p in self.phones)}" if self.phones else ""
         sb = f",{BLUE} birthday: {YELLOW} {self.birthday}{RESET}" if self.birthday else ""
-        return (f"{BLUE}Contact name:{YELLOW} {self.name.value} {sp} {sb}")
+        sa = f",{BLUE} address: {YELLOW} {self.address}{RESET}" if self.address else ""
+        se = f",{BLUE} email: {YELLOW} {self.email}{RESET}" if self.email else ""
+        return (f"{BLUE}Contact name:{YELLOW} {self.name.value} {sp} {sb} {sa} {se}")  
 
 
 class AddressBook(UserDict):
@@ -220,7 +225,7 @@ class AddressBook(UserDict):
 
     def find(self, name):
         for nam, rec in self.data.items():
-            if rec.name.value == name:
+            if rec.name.value.lower() == name.lower():
                 return rec
 
     def delete(self, name):
