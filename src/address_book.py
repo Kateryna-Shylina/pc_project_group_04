@@ -4,10 +4,11 @@
 from collections import UserDict
 from datetime import datetime
 import pickle
+import re
 
 RED = "\033[91m"
 GREEN = "\033[92m"
-YELLOW="\033[93m"
+YELLOW = "\033[93m"
 RESET = "\033[0m"
 BLUE = "\033[94m"
 
@@ -29,6 +30,7 @@ class Field:
 
     def __str__(self):
         return str(self.value)
+
 
 class Name(Field):
     def __init__(self, value):
@@ -59,10 +61,26 @@ class Name(Field):
         self.value = value
 
 
+class Address(Field):
+    def __init__(self, value):
+        self.value = value
+
+
+class Email(Field):
+    def __init__(self, value):    
+        result = re.search(r"[a-zA-Z][a-zA-Z0-9._]+@[a-z]{2,}\.[a-z]{2,}", value)
+        if (result):
+            self.value = value
+        else:
+            raise ValueError("Wrong email address")
+
+
 class Record:
     def __init__(self, name, birthday=None):
         self.name = Name(name)
         self.phones = []
+        self.address = ''
+        self.email = ''
         self.birthday = birthday
         if birthday:
             try:
@@ -128,6 +146,12 @@ class Record:
         for phone in self.phones:
             if phone.value == num_phone:
                 return phone
+            
+    def add_address(self, address_s):
+        self.address = address_s
+
+    def add_email(self, email_s):
+        self.address = email_s
 
     def __str__(self):
         sp = f"{BLUE} phones:{YELLOW} {'; '.join(p.value for p in self.phones)}" if self.phones else ""
