@@ -113,8 +113,8 @@ class NoteBook(UserDict):
         return f'Found by tag: {found}'
 
     def remove_note(self, note_it_to_del) -> None:
-        if note_it_to_del in self.data:
-            del self.data[note_it_to_del]
+        if note_it_to_del.id in self.data:
+            del self.data[note_it_to_del.id]
             print(f'Note {Note(note_it_to_del).id} deleted')
 
     def sort_by_tag(self) -> [Note]:
@@ -142,13 +142,17 @@ if __name__ == '__main__':
 
     n1 = Note('1st cc', ['music', 'legends'])
     n2 = Note('2ndc', ['lali'])
-    n2.edit_content('"We Are the Champions" #is a song by the British rock band Queen, released from the band"s sixth album News of the World (1977). Written by lead singer Freddie Mercury, it remains among rock"s most recognisable anthems.')
+    # n2.edit_content('"We Are the Champions" #is a song by the British rock band Queen, released from the band"s sixth album News of the World (1977). Written by lead singer Freddie Mercury, it remains among rock"s most recognisable anthems.')
+    n2.edit_content('We')
     b1 = NoteBook()
 
     #
     b1.add_note(n1)
     b1.add_note(n2)
     print(b1.find_by_content('cc'))
+    b1.remove_note(n2)
+    print(b1.__dict__)
+    exit()
 
     print(b1.sort_by_tag())
 
