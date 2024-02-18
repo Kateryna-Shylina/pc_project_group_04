@@ -81,6 +81,7 @@ def start_bot():
     
     try:
         book = address_book.read_from_file(filename_address_book)
+        book.find_birthday_people()
     except Exception:
         book = address_book.AddressBook()
     
