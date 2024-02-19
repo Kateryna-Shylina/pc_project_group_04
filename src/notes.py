@@ -112,6 +112,29 @@ class NoteBook(UserDict):
                     found.append(self.data[note])  # для тестування замінити ці коментарі в цих 2 рядках місцями)
         return f'Found by tag: {found}'
 
+    # ---------Добавил потому что не получается что то иззменять с тем кодом что есть. Добавил Артём, для коректной работы.
+    def edit_content_by_tag(self, search_tag, new_content):
+        search_tag = search_tag.lower()
+        for note in self.data.values():
+            for tag in note.tag:
+                if search_tag == tag.value.lower():
+                    note.edit_content(new_content)
+                    return f'Content edited for note with tag {search_tag}'
+        return f'No note found with tag {search_tag}'
+
+    def edit_tag_by_old_value(self, old_tag, new_tag):
+        count_changed = 0
+        for note in self.data.values():
+            for tag in note.tag:
+                if tag.value == old_tag:
+                    tag.value = new_tag
+                    count_changed += 1
+        if count_changed > 0:
+            return f"{count_changed} tag(s) '{old_tag}' successfully changed to '{new_tag}'."
+        else:
+            return f"No tag '{old_tag}' found in any note."
+
+    # --------------------------------------------------------------------------------------------------------
 
     def remove_note(self, note_it_to_del) -> None:
         if note_it_to_del.id in self.data:
@@ -125,7 +148,7 @@ class NoteBook(UserDict):
         sorted_notes_by_tags = [note for id, note in sorted_notes_by_tags]  # залишаємо об'єкти Note
         return f'Sorted notes by TAG: {sorted_notes_by_tags}'
 
-
+    
     def show_all(self) -> {Note}:
         return f'All Notes: {list(self.data.values())}'
 
