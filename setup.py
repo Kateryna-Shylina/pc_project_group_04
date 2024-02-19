@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(name='personal_assistant',
+setup(name='pc_project_group_04',
       version='0.0.1',
       description='Your personal assistant',
       url='https://github.com/Kateryna-Shylina/pc_project_group_04',
