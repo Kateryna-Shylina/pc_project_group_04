@@ -225,7 +225,7 @@ def start_bot():
                     note.save_pickle(filename_note_book)
                 elif input_data == 'find by content' or input_data == 'fc':
                     # Код для поиска заметок по содержимому
-                    find_by_content = input(f"{GREEN}Enter the tag: {RESET}")
+                    find_by_content = input(f"{GREEN}Enter the words that are in the text: {RESET}")
                     found_notes = note.find_by_content(find_by_content)
                     print(f"{YELLOW}{found_notes}")
                 elif input_data == 'find by tag' or input_data == 'ft':
@@ -236,8 +236,8 @@ def start_bot():
                 elif input_data == 'sort by tag' or input_data == 'st':
                     # Код для сортировки заметок по тегам
                     sorted_notes_contents = note.sort_by_tag()
-                    for content in sorted_notes_contents:
-                        print(f"{YELLOW}{content}")
+                    # for content in sorted_notes_contents:
+                    print(f"{YELLOW}{sorted_notes_contents}")
                 elif input_data == 'show all' or input_data == 'all':
                     # Код для отображения всех заметок
                     print(note.show_all())
@@ -249,29 +249,36 @@ def start_bot():
                 input_data = input(f"{FLY_BLUE}[notepad] {RESET}| {GREEN}Enter command: {RESET}")
                 if input_data == "exit":
                     PROGRAM_STATUS = False
+                    notepad_dict.save_to_file(filename_notepad_book)
                     break
                 elif input_data == 'main menu' or input_data == 'back':
                     print(f"{YELLOW} You have returned to the main menu.")
+                    notepad_dict.save_to_file(filename_notepad_book)
                     break
-                elif data == 'help':
+                elif input_data == 'help':
                     help_opening_a_text_document()
                 elif input_data == 'add':
                     notepad_dict.add_notepad()
+                    notepad_dict.save_to_file(filename_notepad_book)
                 elif input_data == 'all':
                     notepad_dict.get_all()
+                    notepad_dict.save_to_file(filename_notepad_book)
                 elif input_data == 'add descr':
                     try:
                         notepad_dict[input(f"{GREEN}Enter file name: {RESET}")].add_description()
+                        notepad_dict.save_to_file(filename_notepad_book)
                     except KeyError:
                         print(f"{RED}This file is daily{RESET}")
                 elif input_data == 'edit' or input_data == 'look' :
                     try:
                         notepad_dict[input(f"{GREEN}Enter file name: {RESET}")].open_notepad()
+                        notepad_dict.save_to_file(filename_notepad_book)
                     except KeyError:
                         print(f"{RED}no such file exists.{RESET}")
                 elif  input_data=="delete":
                     try:
                         notepad_dict.delete_notepad(input(f"{GREEN}Enter file name: {RESET}"))
+                        notepad_dict.save_to_file(filename_notepad_book)
                     except KeyError:
                         print(f"{RED}this file is not exist.{RESET}")
                 elif input_data == 'find':
@@ -299,6 +306,7 @@ def start_bot():
         elif data == "exit":
                 book.save_to_file(filename_address_book)
                 note.save_pickle(filename_note_book)
+                notepad_dict.save_to_file(filename_notepad_book)
                 PROGRAM_STATUS = False
         
         else:
