@@ -82,6 +82,9 @@ def start_bot():
     filename_address_book = "files\\save_contacts.bin"
     filename_note_book = "files\\save_notes.bin"
     filename_notepad_book = "files\\save_notepad.bin"
+    #filename_address_book = "C:\\Python\\save_contacts.bin"
+    #filename_note_book = "C:\\Python\\save_notes.bin"
+    #filename_notepad_book = "C:\\Python\\save_notepad.bin"
     
     try:
         book = src.address_book.read_from_file(filename_address_book)
