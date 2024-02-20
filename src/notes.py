@@ -53,7 +53,6 @@ class Note:
 
     def __init__(self, content, tags=[]):
         self.id = str(uuid.uuid4())[:5]
-        # self.id = '1111'  # для тесів залишено(щоб точно був відомий id), закоментувати попередній рядок, а цей розкоментувати
         self.content = Content(content)
         if tags:
             self.tag = [Tag(tag) for tag in tags]
@@ -64,9 +63,7 @@ class Note:
     def edit_content(self, new_content) -> None:
         self.content.value = new_content
         tags_found = re.findall(r'#\s*([\w-]+\d*)', self.content.value)
-        # print(f'Found :{tags_found}')
         tags_found = [Tag(tag) for tag in tags_found]  # перетворюємо знайдені рядки на об'єкти Tag
-        # print(tags_found)
         if tags_found:
             self.tag.extend(tags_found)
 
@@ -76,18 +73,18 @@ class Note:
     def add_tag(self, new_tag) -> None:
         self.tag.append(Tag(new_tag))
 
-
     def edit_tag(self, new_tag) -> None:
         self.tag = [Tag(new_tag)]
 
     def remove_tag(self) -> None:
         self.tag = []
 
-
     def __str__(self):
         return f'Content: {self.content.value}, Note ID: {self.id}, Date Created: {self.creationdate}, Tags: {[tag.value for tag in self.tag]}'
+
     def __repr__(self):
         return f'Content: {self.content.value}, Note ID: {self.id}, Date Created: {self.creationdate}, Tags: {[tag.value for tag in self.tag]}'
+
 
 class NoteBook(UserDict):
 
@@ -99,9 +96,10 @@ class NoteBook(UserDict):
         search_content = search_content.lower()
         for note in self.data:
             if search_content in self.data[note].content.value.lower():
-                found.append(self.data[note])  # для тестування замінити ці коментарі в цих 2 рядках місцями)
-        return f'Found notes by content: {found}'
-        #
+                found.append(self.data[note])
+        result = '\n'.join(str(line) for line in self.data.values())
+
+        return f'Found notes by content:\n{result}'
 
     def find_by_tag(self, search_tag) -> [Note]:
         found = []
@@ -110,8 +108,33 @@ class NoteBook(UserDict):
             for tag in self.data[note].tag:
                 if search_tag == tag.value.lower():
                     found.append(self.data[note])  # для тестування замінити ці коментарі в цих 2 рядках місцями)
-        return f'Found by tag: {found}'
 
+        result = '\n'.join(str(line) for line in self.data.values())
+
+        return f'Found by tag:\n{result}'
+
+    def edit_content_by_tag(self, search_tag, new_content):
+        search_tag = search_tag.lower()
+        for note in self.data.values():
+            for tag in note.tag:
+                if search_tag == tag.value.lower():
+                    note.edit_content(new_content)
+                    return f'Content edited for note with tag {search_tag}'
+        return f'No note found with tag {search_tag}'
+
+    def edit_tag_by_old_value(self, old_tag, new_tag):
+        count_changed = 0
+        for note in self.data.values():
+            for tag in note.tag:
+                if tag.value == old_tag:
+                    tag.value = new_tag
+                    count_changed += 1
+        if count_changed > 0:
+            return f"{count_changed} tag(s) '{old_tag}' successfully changed to '{new_tag}'."
+        else:
+            return f"No tag '{old_tag}' found in any note."
+
+    # --------------------------------------------------------------------------------------------------------
 
     def remove_note(self, note_it_to_del) -> None:
         if note_it_to_del.id in self.data:
@@ -123,11 +146,14 @@ class NoteBook(UserDict):
         # і сортується по цим "1м" значенням
         sorted_notes_by_tags = sorted(self.data.items(), key=lambda x: min(tag.value.lower() for tag in x[1].tag))
         sorted_notes_by_tags = [note for id, note in sorted_notes_by_tags]  # залишаємо об'єкти Note
-        return f'Sorted notes by TAG: {sorted_notes_by_tags}'
 
+        result = '\n'.join(str(note) for note in sorted_notes_by_tags)
+
+        return f'Sorted notes by TAG:\n{result}'
 
     def show_all(self) -> {Note}:
-        return f'All Notes: {list(self.data.values())}'
+        result = '\n'.join(str(value) for value in self.data.values())
+        return f'All Notes:\n{result}'
 
     def save_pickle(self, filename):
         with open(filename, 'wb') as file:
@@ -139,14 +165,41 @@ class NoteBook(UserDict):
             deserialized = pickle.load(file)
         return deserialized
 
+
 if __name__ == '__main__':
+    base_path = os.path.dirname(__file__)
 
-    n1 = Note('1st cc', ['music', 'legends'])
-    n2 = Note('2ndc', ['lali'])
-    # n2.edit_content('"We Are the Champions" #is a song by the British rock band Queen, released from the band"s sixth album News of the World (1977). Written by lead singer Freddie Mercury, it remains among rock"s most recognisable anthems.')
-    n2.edit_content('We')
-    b1 = NoteBook()
+    # filename_address_book = os.path.join(base_path, "..", "files", "save_contacts.bin")
+    # filename_note_book = os.path.join(base_path, "..", "files", "save_notes.bin")
 
+    filename_address_book = "files\\save_contacts.bin"
+    filename_note_book = "files\\save_notes.bin"
+
+    try:
+        note = NoteBook.load_pickle(filename_note_book)
+    except Exception:
+        note = NoteBook()
+
+n1 = Note('1st cc', ['music', 'legends'])
+n2 = Note('2ndc', ['lali'])
+# n2.edit_content('"We Are the Champions" #is a song by the British rock band Queen, released from the band"s sixth album News of the World (1977). Written by lead singer Freddie Mercury, it remains among rock"s most recognisable anthems.')
+# n2.edit_content('We')
+b1 = NoteBook()
+b1.add_note(n1)
+b1.add_note(n2)
+# b1.edit_content_by_tag('music', 'ddd')
+# print(b1.__dict__)
+# b1.edit_tag_by_old_value('music', 'ff')
+print(b1.__dict__)
+b1.add_note(n2)
+print(b1.sort_by_tag())
+# print(b1.show_all())
+print(b1.find_by_content('c'))
+
+print(b1.find_by_tag('music'))
+print(b1.show_all())
+
+"""
     #
     b1.add_note(n1)
     b1.add_note(n2)
@@ -246,3 +299,4 @@ if __name__ == '__main__':
     # print(b1.find_by_tag('mus'))
     # print(b1.show_all())
     # print(b1)
+"""
