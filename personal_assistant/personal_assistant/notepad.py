@@ -2,7 +2,7 @@ from collections import UserDict
 import os
 from main import Field
 import pickle
-from address_book import read_from_file
+from personal_assistant.address_book import read_from_file
 
 ##***************************************  ЦЕ САМ МОДУЛЬ **************************************************************
 

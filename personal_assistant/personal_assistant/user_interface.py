@@ -2,9 +2,9 @@
     User Interface Modul
 """
 
-import address_book
-import notes
-import files
+import personal_assistant.address_book
+import personal_assistant.notes
+#import files
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -76,20 +76,22 @@ def help_interacting_with_applications():
 def start_bot():
     print(f'{YELLOW}Hello! I`m your personal assistant! To finish working please enter "exit". To view all commands please enter "Help"{RESET}')
 
-    filename_address_book = "files\\save_contacts.bin"
-    filename_note_book = "files\\save_notes.bin"
+    #filename_address_book = "files\\save_contacts.bin"
+    #filename_note_book = "files\\save_notes.bin"
+    filename_address_book = "save_contacts.bin"
+    filename_note_book = "save_notes.bin"
     
     try:
-        book = address_book.read_from_file(filename_address_book)
+        book = personal_assistant.address_book.read_from_file(filename_address_book)
         book.find_birthday_people()
     except Exception:
-        book = address_book.AddressBook()
+        book = personal_assistant.address_book.AddressBook()
     
     # try:
-    #     note = notes.NoteBook.load_pickle(filename_note_book)
+    #     note = personal_assistant.notes.NoteBook.load_pickle(filename_note_book)
     # except Exception:
-    #     note = notes.NoteBook()
-    note = notes.NoteBook()
+    #     note = personal_assistant.notes.NoteBook()
+    note = personal_assistant.notes.NoteBook()
     
     program_status = True
 
@@ -111,7 +113,7 @@ def start_bot():
                 elif input_data == "add":
                     name = input(f"{GREEN}Enter name: {RESET}")
                     if (name):
-                        record = address_book.Record(name)
+                        record = personal_assistant.address_book.Record(name)
                         phone = input(f"{GREEN}Enter phone number (or press 'Enter' to continue): {RESET}")
                         if phone:
                             record.add_phone(phone)
@@ -164,7 +166,7 @@ def start_bot():
                     # Создание новой заметки и добавление её в NoteBook
                     new_tag = input(f"{GREEN}Enter tags: {RESET}")
                     new_content = str(input(f"{GREEN}Enter content: {RESET}"))
-                    note.add_note(notes.Note(new_content, [new_tag]))
+                    note.add_note(personal_assistant.notes.Note(new_content, [new_tag]))
                 elif input_data == 'edit content' or input_data == 'ec':
                     # Код для редактирования содержимого заметки
                     tag_to_search = input(f"{GREEN}Enter the tag to search for: {RESET}")
