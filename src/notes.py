@@ -1,3 +1,4 @@
+"""
 from collections import UserDict
 from datetime import datetime
 import uuid
@@ -199,6 +200,7 @@ print(b1.find_by_content('c'))
 print(b1.find_by_tag('music'))
 print(b1.show_all())
 
+"""
 """
     #
     b1.add_note(n1)
