@@ -7,10 +7,11 @@ import notes
 import notepad
 import files
 from notepad import Notepad_dict
+import os
 
 RED = "\033[91m"
 GREEN = "\033[92m"
-YELLOW="\033[93m"
+YELLOW = "\033[93m"
 RESET = "\033[0m"
 BLUE = "\033[94m"
 FLY_BLUE = "\033[38;5;117m"
@@ -18,92 +19,99 @@ PURPURE = "\033[35m"
 
 
 def help_info():
-    print(f'    {PURPURE}List of comand:{RESET}\n'
-            f'-{YELLOW} "record contact" or "contact" {BLUE} - Interacting with contacts.{RESET}\n'
-            f'-{YELLOW} "record note" or "note" {BLUE} - Interacting with notes.{RESET}\n'
-            f'-{YELLOW} "notepad" {BLUE} - Opening a text document for your notes.{RESET}\n'
-            f'-{YELLOW} interacting with applications {BLUE} - Turning on the music player, video player.{RESET}\n'
-            f'-{YELLOW} "help" {BLUE} - Help{RESET}\n'
-            f'-{YELLOW} "exit"  {BLUE} - Exit from program.\n{RESET}')
+    print(f'   {PURPURE}List of commands:{RESET}\n'
+          f'-{YELLOW} "record contact" or "contact" {BLUE} - Interacting with contacts.{RESET}\n'
+          f'-{YELLOW} "record note" or "note" {BLUE} - Interacting with notes.{RESET}\n'
+          f'-{YELLOW} "notepad" {BLUE} - Opening a text document for your notes.{RESET}\n'
+          f'-{YELLOW} interacting with applications {BLUE} - Turning on the music player, video player.{RESET}\n'
+          f'-{YELLOW} "help" {BLUE} - Help{RESET}\n'
+          f'-{YELLOW} "exit"  {BLUE} - Exit from program.\n{RESET}')
+
 
 def help_record_contact():
-    print(f"   {PURPURE}List of comand for 'record contacts':{RESET}\n"
-            f"-{YELLOW} 'add' {BLUE} - add contact to phone book{RESET}\n"
-            f"-{YELLOW} 'all' {BLUE} - show all records{RESET}\n"
-            f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name{RESET}\n"
-            f"-{YELLOW} 'delete' {BLUE} - delete record from list{RESET}\n"
-            f"-{YELLOW} 'find' {BLUE} - search for records by part of a name or phone number{RESET}\n"
-            f"-{YELLOW} 'help' {BLUE} - help{RESET}\n"
-            f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
-            f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+    print(f"   {PURPURE}List of commands for 'record contacts':{RESET}\n"
+          f"-{YELLOW} 'add' {BLUE} - add contact to phone book{RESET}\n"
+          f"-{YELLOW} 'all' {BLUE} - show all records{RESET}\n"
+          f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name{RESET}\n"
+          f"-{YELLOW} 'delete' {BLUE} - delete record from list{RESET}\n"
+          f"-{YELLOW} 'find' {BLUE} - search for records by part of a name or phone number{RESET}\n"
+          f"-{YELLOW} 'help' {BLUE} - help{RESET}\n"
+          f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
+          f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+
 
 def help_record_note():
-    print(f"   {PURPURE}List of comand for 'record note':{RESET}\n"
-            f"-{YELLOW} 'add' or 'add content' {BLUE} - Add a note.{RESET}\n"
-            f"-{YELLOW} 'edit content' or 'ec' {BLUE} - Edit note text.{RESET}\n"
-            f"-{YELLOW} 'edit tag' or 'et' {BLUE} - Edit tag.{RESET}\n"
-            f"-{YELLOW} 'remove content' or 'rc' {BLUE} - Delete note text.{RESET}\n"
-            f"-{YELLOW} 'remove tag' or 'rt' {BLUE} - Delete tag.{RESET}\n"
-            f"-{YELLOW} 'remove note' or 'rn' {BLUE} - Delete note.{RESET}\n"
-            f"-{YELLOW} 'find by content' or 'fc' {BLUE} - Search within note text.{RESET}\n"
-            f"-{YELLOW} 'find by tag' or 'ft' {BLUE} - Search within tag.{RESET}\n"
-            f"-{YELLOW} 'sort by tag' or 'st' {BLUE} - Sort by tags.{RESET}\n"
-            f"-{YELLOW} 'show all' or 'all' {BLUE} - Show all notes and their keys.{RESET}\n"
-            f"-{YELLOW} 'help' {BLUE} - help.{RESET}\n"
-            f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
-            f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+    print(f"   {PURPURE}List of commands for 'record note':{RESET}\n"
+          f"-{YELLOW} 'add' or 'add content' {BLUE} - Add a note.{RESET}\n"
+          f"-{YELLOW} 'edit content' or 'ec' {BLUE} - Edit note text.{RESET}\n"
+          f"-{YELLOW} 'edit tag' or 'et' {BLUE} - Edit tag.{RESET}\n"
+          f"-{YELLOW} 'remove content' or 'rc' {BLUE} - Delete note text.{RESET}\n"
+          f"-{YELLOW} 'remove tag' or 'rt' {BLUE} - Delete tag.{RESET}\n"
+          f"-{YELLOW} 'remove note' or 'rn' {BLUE} - Delete note.{RESET}\n"
+          f"-{YELLOW} 'find by content' or 'fc' {BLUE} - Search within note text.{RESET}\n"
+          f"-{YELLOW} 'find by tag' or 'ft' {BLUE} - Search within tag.{RESET}\n"
+          f"-{YELLOW} 'sort by tag' or 'st' {BLUE} - Sort by tags.{RESET}\n"
+          f"-{YELLOW} 'show all' or 'all' {BLUE} - Show all notes and their keys.{RESET}\n"
+          f"-{YELLOW} 'help' {BLUE} - help.{RESET}\n"
+          f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
+          f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+
 
 def help_opening_a_text_document():
-    print(f"   {PURPURE}List of comand for 'working with text files':{RESET}\n"
-            f"-{YELLOW} 'add' {BLUE} - Creating an empty text file (you can open it with the 'edit' command).{RESET}\n"
-            f"-{YELLOW} 'all' {BLUE} - Show all posts.{RESET}\n"
-            f"-{YELLOW} 'add descr' {BLUE} - Add text Document.{RESET}\n"
-            f"-{YELLOW} 'edit' {BLUE} - Opening a text document to edit entries.{RESET}\n"
-            f"-{YELLOW} 'delete' {BLUE} - Delete selected file.{RESET}\n"
-            f"-{YELLOW} 'find' {BLUE} - Search by text in files.{RESET}\n"
-            f"-{YELLOW} 'help' {BLUE} - help\n"
-            f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
-            f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+    print(f"   {PURPURE}List of commands for 'working with text files':{RESET}\n"
+          f"-{YELLOW} 'add' {BLUE} - Creating an empty text file (you can open it with the 'edit' command).{RESET}\n"
+          f"-{YELLOW} 'all' {BLUE} - Show all posts.{RESET}\n"
+          f"-{YELLOW} 'add descr' {BLUE} - Add text Document.{RESET}\n"
+          f"-{YELLOW} 'edit' {BLUE} - Opening a text document to edit entries.{RESET}\n"
+          f"-{YELLOW} 'delete' {BLUE} - Delete selected file.{RESET}\n"
+          f"-{YELLOW} 'find' {BLUE} - Search by text in files.{RESET}\n"
+          f"-{YELLOW} 'help' {BLUE} - help\n"
+          f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
+          f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+
 
 def help_interacting_with_applications():
-    print(f"   {PURPURE}List of comand for 'record_contacts':{RESET}\n"
-            f"-{YELLOW} 'add' {BLUE} - add contact to phone book{RESET}\n"
-            f"-{YELLOW} 'all' {BLUE} - show all records{RESET}\n"
-            f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name{RESET}\n"
-            f"-{YELLOW} 'delete' {BLUE} - delete record from list{RESET}\n"
-            f"-{YELLOW} 'find' {BLUE} - search for records by part of a name or phone number{RESET}\n"
-            f"-{YELLOW} 'help' {BLUE} - help{RESET}\n"
-            f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
-            f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+    print(f"   {PURPURE}List of commands for 'record_contacts':{RESET}\n"
+          f"-{YELLOW} 'add' {BLUE} - add contact to phone book{RESET}\n"
+          f"-{YELLOW} 'all' {BLUE} - show all records{RESET}\n"
+          f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name{RESET}\n"
+          f"-{YELLOW} 'delete' {BLUE} - delete record from list{RESET}\n"
+          f"-{YELLOW} 'find' {BLUE} - search for records by part of a name or phone number{RESET}\n"
+          f"-{YELLOW} 'help' {BLUE} - help{RESET}\n"
+          f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
+          f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+
 
 def start_bot():
-    print(f'{YELLOW}Hello! I`m your personal assistant! To finish working please enter {RED}"exit"{YELLOW}. To view all commands please enter "Help"{RESET}')
+    print(
+        f'{YELLOW}Hello! I`m your personal assistant! To finish working please enter {RED}"exit"{YELLOW}. To view all commands please enter "help"{RESET}')
 
-    filename_address_book = "files\\save_contacts.bin"
-    filename_note_book = "files\\save_notes.bin"
-    filename_notepad_book = "files\\save_notepad.bin"
-    
+    base_path = os.path.dirname(__file__)
+    filename_address_book = os.path.join(base_path, "..", "files", "save_contacts.bin")
+    filename_note_book = os.path.join(base_path, "..", "files", "save_notes.bin")
+    filename_notepad_book = os.path.join(base_path, "..", "files", "save_notepad.bin")
+
     try:
         book = address_book.read_from_file(filename_address_book)
         book.find_birthday_people()
     except Exception:
         book = address_book.AddressBook()
-    
+
     try:
         note = notes.NoteBook.load_pickle(filename_note_book)
     except Exception:
         note = notes.NoteBook()
-    
+
     try:
         notepad_dict = notepad.read_from_file(filename_notepad_book)
     except Exception:
         notepad_dict = Notepad_dict()
-    
+
     PROGRAM_STATUS = True
 
-    while   PROGRAM_STATUS:
+    while PROGRAM_STATUS:
         data = input(f"{PURPURE}> {RESET}").lower()
-        
+
         if data == "record contact" or data == "contact":
             while True:
                 input_data = input(f"{FLY_BLUE}[record contact] {RESET}| {GREEN}Enter command: {RESET}")
@@ -124,13 +132,14 @@ def start_bot():
                         phone = input(f"{GREEN}Enter phone number (or press 'Enter' to continue): {RESET}")
                         if phone:
                             record.add_phone(phone)
-                        birthday = input(f"{GREEN}Enter date of birth [DD-MM-YYYY](or press 'Enter' to continue): {RESET}")
+                        birthday = input(
+                            f"{GREEN}Enter date of birth [DD-MM-YYYY](or press 'Enter' to continue): {RESET}")
                         if birthday:
                             record.add_birthday(birthday)
-                        email = input(f"{GREEN}Enter email (or press 'Enter' to continue): {RESET}") 
+                        email = input(f"{GREEN}Enter email (or press 'Enter' to continue): {RESET}")
                         if email:
                             record.add_email(email)
-                        address = input(f"{GREEN}Enter address (or press 'Enter' to continue): {RESET}") 
+                        address = input(f"{GREEN}Enter address (or press 'Enter' to continue): {RESET}")
                         if address:
                             record.add_address(address)
                         book.add_record(record)
@@ -145,27 +154,28 @@ def start_bot():
                         else:
                             print(f"{RED}The name {name} was not found in the address book")
                     book.save_to_file(filename_address_book)
-                elif input_data=="delete":
+                elif input_data == "delete":
                     name = input(f"{GREEN}Enter name: {RESET}")
-                    if (name ):
-                        nam=book.delete(name)
+                    if (name):
+                        nam = book.delete(name)
                         if nam:
                             print(f"{nam} deleted from address book")
                         else:
                             print(f"{RED}The name {name} was not found in the address book")
                     book.save_to_file(filename_address_book)
                 elif input_data == "find":
-                    find_contact=input(f"{GREEN}Enter text for searching (part of name or phone number): {RESET}")
+                    find_contact = input(f"{GREEN}Enter text for searching (part of name or phone number): {RESET}")
                     book.get_find(find_contact)
 
                 elif input_data == "all":
-                    n=-1
-                    if len(book.data.items())>10:
-                        n=10
+                    n = -1
+                    if len(book.data.items()) > 10:
+                        n = 10
                     book.get_all(n)
                 else:
-                    print(f'{RED}Command "{data}" not found. The following command will "help" you know what the commands are.')
-                
+                    print(
+                        f'{RED}Command "{data}" not found. The following command will "help" you know what the commands are.')
+
         elif data == 'record note' or data == 'note':
             while True:
                 input_data = input(f"{FLY_BLUE}[record note] {RESET}| {GREEN}Enter command: {RESET}")
@@ -213,7 +223,7 @@ def start_bot():
                         print("Found notes with the tag:")
                         for key, found_note in found_notes.items():
                             print(f"Key: {key}, Content: {found_note.content.value}")
-                            
+
                         key_to_delete = input(f"{RED}Enter the key of the note you want to delete: {RESET}")
                         if key_to_delete in found_notes:
                             del note[key_to_delete]
@@ -242,8 +252,9 @@ def start_bot():
                     # Код для отображения всех заметок
                     print(note.show_all())
                 else:
-                    print(f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
-        
+                    print(
+                        f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
+
         elif data == 'notepad':
             while True:
                 input_data = input(f"{FLY_BLUE}[notepad] {RESET}| {GREEN}Enter command: {RESET}")
@@ -269,13 +280,13 @@ def start_bot():
                         notepad_dict.save_to_file(filename_notepad_book)
                     except KeyError:
                         print(f"{RED}This file is daily{RESET}")
-                elif input_data == 'edit' or input_data == 'look' :
+                elif input_data == 'edit' or input_data == 'look':
                     try:
                         notepad_dict[input(f"{GREEN}Enter file name: {RESET}")].open_notepad()
                         notepad_dict.save_to_file(filename_notepad_book)
                     except KeyError:
                         print(f"{RED}no such file exists.{RESET}")
-                elif  input_data=="delete":
+                elif input_data == "delete":
                     try:
                         notepad_dict.delete_notepad(input(f"{GREEN}Enter file name: {RESET}"))
                         notepad_dict.save_to_file(filename_notepad_book)
@@ -284,8 +295,9 @@ def start_bot():
                 elif input_data == 'find':
                     notepad_dict.find(input(f"{GREEN}Enter text to search: {RESET}"))
                 else:
-                    print(f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
-                
+                    print(
+                        f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
+
         elif data == 'interacting with applications':
             while True:
                 input_data = input(f"{FLY_BLUE}[interacting with applications] {RESET}| {GREEN}Enter command: {RESET}")
@@ -298,17 +310,18 @@ def start_bot():
                 elif input_data == 'help':
                     help_interacting_with_applications()
                 else:
-                    print(f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
-        
+                    print(
+                        f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
+
         elif data == "help":
-                help_info()
-        
+            help_info()
+
         elif data == "exit":
-                book.save_to_file(filename_address_book)
-                note.save_pickle(filename_note_book)
-                notepad_dict.save_to_file(filename_notepad_book)
-                PROGRAM_STATUS = False
-        
+            book.save_to_file(filename_address_book)
+            note.save_pickle(filename_note_book)
+            notepad_dict.save_to_file(filename_notepad_book)
+            PROGRAM_STATUS = False
+
         else:
             print(f"{RED}Command not found. The following command will 'help' you know what the commands are.{RESET}")
 
