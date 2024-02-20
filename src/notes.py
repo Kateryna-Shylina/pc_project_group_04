@@ -166,7 +166,6 @@ class NoteBook(UserDict):
         return deserialized
 
 
-
 if __name__ == '__main__':
     base_path = os.path.dirname(__file__)
 
