@@ -258,6 +258,7 @@ class AddressBook(UserDict):
                 sb = f"  {GREEN}{record.birthday}{RESET}" if record.birthday else ""
                 se = f"  {GREEN}{record.email}{RESET}" if record.email else ""    
                 birthday_people_list.append(f"{GREEN} {record.name.value:<8} {sb:<12} {sp:<12} {se:<20}")   
+
         if (birthday_people_list):
             print(f"{GREEN}Today is the birthday of some of your friends, congratulate them:")
             print(f"{GREEN}{'\n'.join(person for person in birthday_people_list)}")

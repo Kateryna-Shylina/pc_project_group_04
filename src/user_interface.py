@@ -10,6 +10,7 @@ import files
 import different
 from notepad import Notepad_dict
 from different import Different_dict
+
 # ------------
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import Completer, Completion
