@@ -3,13 +3,12 @@
 """
 
 import os
-import address_book
-import notes
-import notepad
-import files
-import different
-from notepad import Notepad_dict
-from different import Different_dict
+import src.address_book
+import src.notes
+import src.notepad
+import src.different
+from src.notepad import Notepad_dict
+from src.different import Different_dict
 
 # ------------
 from prompt_toolkit import prompt
@@ -84,15 +83,15 @@ def help_opening_a_text_document():
 
 
 def help_interacting_with_applications():
-    print(f"   {PURPURE}List of commands for 'record_contacts':{RESET}\n"
-            f"-{YELLOW} 'all' {BLUE} - show all records{RESET}\n"
-            f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name{RESET}\n"
-            f"-{YELLOW} 'delete' {BLUE} - delete record from list{RESET}\n"
-            f"-{YELLOW} 'find' {BLUE} - search for records by part of a name or phone number{RESET}\n"
-            f"-{YELLOW} 'help' {BLUE} - help{RESET}\n"
-            f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
-            f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
-
+    print(f"   {PURPURE}List of command for calling  other files':{RESET}\n"
+          f"-{YELLOW} 'all' {BLUE} - show list of all files in directories video, audio, photo, python{RESET}\n"
+          f"-{YELLOW} 'add descr' {BLUE} - add description to filesn{RESET}\n"
+          f"-{YELLOW} 'play' {BLUE} - start of playing files{RESET}\n"
+          f"-{YELLOW} 'look type' {BLUE} - look only type (video, audio, photo, python){RESET}\n"
+          f"-{YELLOW} 'find' {BLUE} - find by name or description{RESET}\n"
+          f"-{YELLOW} 'help' {BLUE} - help{RESET}\n"
+          f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
+          f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
 
 class MyCompleter(Completer):
     def __init__(self, commands):
@@ -111,24 +110,24 @@ def start_bot():
     filename_address_book = os.path.join(base_path, "..", "files", "save_contacts.bin")
     filename_note_book = os.path.join(base_path, "..", "files", "save_notes.bin")
     filename_notepad_book = os.path.join(base_path, "..", "files", "save_notepad.bin")
+    filename_different_dict = src.different.get_dict()
 
     try:
-        book = address_book.read_from_file(filename_address_book)
+        book = src.address_book.read_from_file(filename_address_book)
         book.find_birthday_people()
     except Exception:
-        book = address_book.AddressBook()
+        book = src.address_book.AddressBook()
 
     try:
-        note = notes.NoteBook.load_pickle(filename_note_book)
+        note = src.notes.NoteBook.load_pickle(filename_note_book)
     except Exception:
-        note = notes.NoteBook()
+        note = src.notes.NoteBook()
 
     try:
-        notepad_dict = notepad.read_from_file(filename_notepad_book)
+        notepad_dict = src.notepad.read_from_file(filename_notepad_book)
     except Exception:
         notepad_dict = Notepad_dict()
-    
-    filename_different_dict= different.get_dict()
+        
     
     PROGRAM_STATUS = True
 
@@ -150,6 +149,7 @@ def start_bot():
                     history = InMemoryHistory()
                     completer = MyCompleter(['add', 'add tel', 'delete',
                                 'find','all','back','main menu','help', 'exit'])
+
 
                     try:
                         input_data = prompt("Enter command: ",
