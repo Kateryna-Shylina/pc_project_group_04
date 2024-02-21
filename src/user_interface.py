@@ -30,14 +30,14 @@ def help_info():
 
 def help_record_contact():
     print(f"   {PURPURE}List of commands for 'record contacts':{RESET}\n"
-          f"-{YELLOW} 'add' {BLUE} - add contact to phone book{RESET}\n"
-          f"-{YELLOW} 'all' {BLUE} - show all records{RESET}\n"
-          f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name{RESET}\n"
-          f"-{YELLOW} 'delete' {BLUE} - delete record from list{RESET}\n"
-          f"-{YELLOW} 'find' {BLUE} - search for records by part of a name or phone number{RESET}\n"
-          f"-{YELLOW} 'help' {BLUE} - help{RESET}\n"
-          f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
-          f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+            f"-{YELLOW} 'add' {BLUE} - add contact to phone book{RESET}\n"
+            f"-{YELLOW} 'all' {BLUE} - show all records{RESET}\n"
+            f"-{YELLOW} 'add tel' {BLUE} - add phone number to record with Name{RESET}\n"
+            f"-{YELLOW} 'delete' {BLUE} - delete record from list{RESET}\n"
+            f"-{YELLOW} 'find' {BLUE} - search for records by part of a name or phone number{RESET}\n"
+            f"-{YELLOW} 'help' {BLUE} - help{RESET}\n"
+            f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
+            f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
 
 
 def help_record_note():
@@ -57,15 +57,15 @@ def help_record_note():
 
 def help_opening_a_text_document():
     print(f"   {PURPURE}List of commands for 'working with text files':{RESET}\n"
-          f"-{YELLOW} 'add' {BLUE} - Creating an empty text file (you can open it with the 'edit' command).{RESET}\n"
-          f"-{YELLOW} 'all' {BLUE} - Show all posts.{RESET}\n"
-          f"-{YELLOW} 'add descr' {BLUE} - Add text Document.{RESET}\n"
-          f"-{YELLOW} 'edit' {BLUE} - Opening a text document to edit entries.{RESET}\n"
-          f"-{YELLOW} 'delete' {BLUE} - Delete selected file.{RESET}\n"
-          f"-{YELLOW} 'find' {BLUE} - Search by text in files.{RESET}\n"
-          f"-{YELLOW} 'help' {BLUE} - help\n"
-          f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
-          f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
+            f"-{YELLOW} 'add' {BLUE} - Creating an empty text file (you can open it with the 'edit' command).{RESET}\n"
+            f"-{YELLOW} 'all' {BLUE} - Show all posts.{RESET}\n"
+            f"-{YELLOW} 'add descr' {BLUE} - Add text Document.{RESET}\n"
+            f"-{YELLOW} 'edit' {BLUE} - Opening a text document to edit entries.{RESET}\n"
+            f"-{YELLOW} 'delete' {BLUE} - Delete selected file.{RESET}\n"
+            f"-{YELLOW} 'find' {BLUE} - Search by text in files.{RESET}\n"
+            f"-{YELLOW} 'help' {BLUE} - help\n"
+            f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
+            f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
 
 
 def help_interacting_with_applications():
@@ -224,7 +224,7 @@ def start_bot():
                     if delete_id in note.data:
                         note.remove_note(note.data[delete_id])
                         note.save_pickle(filename_note_book)
-                        print(f"{YELLOW}Заметка с ID {delete_id} удалена.{RESET}")
+                        print(f"{YELLOW}Note with ID {delete_id} deleted.{RESET}")
                     else:
                         print(f"{RED} No such ID")
                 elif input_data == 'find by content' or input_data == 'fc':
