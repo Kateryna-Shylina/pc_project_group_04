@@ -67,11 +67,14 @@ class Address(Field):
 
 
 class Email(Field):
-    def __init__(self, value):    
+    def __init__(self, value): 
+        result = list() 
         result = re.findall(r"[a-zA-Z][a-zA-Z0-9._]+@[a-z]{2,}\.[a-z]{2,}", value)
-        if result[0] == value:
-            self.value = value
-        else:
+        try:
+            if result[0] == value:
+                self.value = value
+        except:
+            self.value = ''    
             raise ValueError
 
 

@@ -9,11 +9,7 @@ import notepad
 import files
 import different
 from notepad import Notepad_dict
-<<<<<<< HEAD
 from different import Different_dict
-=======
-import os
->>>>>>> a66e5901c858636b8d7f1760d5a19915607277bc
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -25,7 +21,6 @@ PURPURE = "\033[35m"
 
 
 def help_info():
-<<<<<<< HEAD
     print(f'    {PURPURE}List of comand:{RESET}\n'
             f'-{YELLOW} "record contact" or "contact" {BLUE} - Interacting with contacts.{RESET}\n'
             f'-{YELLOW} "record note" or "note" {BLUE} - Interacting with notes.{RESET}\n'
@@ -33,16 +28,6 @@ def help_info():
             f'-{YELLOW} "interacting with applications" or "iwa" {BLUE} - Turning on the music player, video player.{RESET}\n'
             f'-{YELLOW} "help" {BLUE} - Help{RESET}\n'
             f'-{YELLOW} "exit"  {BLUE} - Exit from program.\n{RESET}')
-=======
-    print(f'   {PURPURE}List of commands:{RESET}\n'
-          f'-{YELLOW} "record contact" or "contact" {BLUE} - Interacting with contacts.{RESET}\n'
-          f'-{YELLOW} "record note" or "note" {BLUE} - Interacting with notes.{RESET}\n'
-          f'-{YELLOW} "notepad" {BLUE} - Opening a text document for your notes.{RESET}\n'
-          f'-{YELLOW} interacting with applications {BLUE} - Turning on the music player, video player.{RESET}\n'
-          f'-{YELLOW} "help" {BLUE} - Help{RESET}\n'
-          f'-{YELLOW} "exit"  {BLUE} - Exit from program.\n{RESET}')
-
->>>>>>> a66e5901c858636b8d7f1760d5a19915607277bc
 
 def help_record_contact():
     print(f"   {PURPURE}List of commands for 'record contacts':{RESET}\n"
@@ -57,7 +42,6 @@ def help_record_contact():
 
 
 def help_record_note():
-<<<<<<< HEAD
     print(f"   {PURPURE}List of comand for 'record note':{RESET}\n"
             f"-{YELLOW} 'add' or 'add content' {BLUE} - Add a note.{RESET}\n"
             f"-{YELLOW} 'edit content' or 'ec' {BLUE} - Edit note text.{RESET}\n"
@@ -71,23 +55,6 @@ def help_record_note():
             f"-{YELLOW} 'help' {BLUE} - help.{RESET}\n"
             f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
             f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
-=======
-    print(f"   {PURPURE}List of commands for 'record note':{RESET}\n"
-          f"-{YELLOW} 'add' or 'add content' {BLUE} - Add a note.{RESET}\n"
-          f"-{YELLOW} 'edit content' or 'ec' {BLUE} - Edit note text.{RESET}\n"
-          f"-{YELLOW} 'edit tag' or 'et' {BLUE} - Edit tag.{RESET}\n"
-          f"-{YELLOW} 'remove content' or 'rc' {BLUE} - Delete note text.{RESET}\n"
-          f"-{YELLOW} 'remove tag' or 'rt' {BLUE} - Delete tag.{RESET}\n"
-          f"-{YELLOW} 'remove note' or 'rn' {BLUE} - Delete note.{RESET}\n"
-          f"-{YELLOW} 'find by content' or 'fc' {BLUE} - Search within note text.{RESET}\n"
-          f"-{YELLOW} 'find by tag' or 'ft' {BLUE} - Search within tag.{RESET}\n"
-          f"-{YELLOW} 'sort by tag' or 'st' {BLUE} - Sort by tags.{RESET}\n"
-          f"-{YELLOW} 'show all' or 'all' {BLUE} - Show all notes and their keys.{RESET}\n"
-          f"-{YELLOW} 'help' {BLUE} - help.{RESET}\n"
-          f"-{YELLOW} 'main menu' of 'back' {BLUE} - Return to main menu{RESET}\n"
-          f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
-
->>>>>>> a66e5901c858636b8d7f1760d5a19915607277bc
 
 def help_opening_a_text_document():
     print(f"   {PURPURE}List of commands for 'working with text files':{RESET}\n"
@@ -115,17 +82,12 @@ def help_interacting_with_applications():
 
 
 def start_bot():
-<<<<<<< HEAD
     print(f'{YELLOW}Hello! I`m your personal assistant! To finish working please enter {RED}"exit"{YELLOW}. To view all commands please enter "help"{RESET}')
-=======
-    print(
-        f'{YELLOW}Hello! I`m your personal assistant! To finish working please enter {RED}"exit"{YELLOW}. To view all commands please enter "help"{RESET}')
 
     base_path = os.path.dirname(__file__)
     filename_address_book = os.path.join(base_path, "..", "files", "save_contacts.bin")
     filename_note_book = os.path.join(base_path, "..", "files", "save_notes.bin")
     filename_notepad_book = os.path.join(base_path, "..", "files", "save_notepad.bin")
->>>>>>> a66e5901c858636b8d7f1760d5a19915607277bc
 
     try:
         book = address_book.read_from_file(filename_address_book)
@@ -142,13 +104,9 @@ def start_bot():
         notepad_dict = notepad.read_from_file(filename_notepad_book)
     except Exception:
         notepad_dict = Notepad_dict()
-<<<<<<< HEAD
     
     filename_different_dict= different.get_dict()
     
-=======
-
->>>>>>> a66e5901c858636b8d7f1760d5a19915607277bc
     PROGRAM_STATUS = True
 
     while PROGRAM_STATUS:
@@ -263,27 +221,11 @@ def start_bot():
                         print(f"{RED} No such tag")
                 elif input_data == 'remove note' or input_data == 'rn':
                     # Код для удаления заметки
-<<<<<<< HEAD
                     delete_id = input(f"{GREEN}Enter ID notes: {RESET}")
                     if delete_id in note.data:
                         note.remove_note(note.data[delete_id])
                         note.save_pickle(filename_note_book)
                         print(f"{YELLOW}Заметка с ID {delete_id} удалена.{RESET}")
-=======
-                    tag_to_search = input(f"{GREEN}Enter the tag: {RESET}")
-                    found_notes = note.find_by_tag(tag_to_search)
-                    if found_notes:
-                        print("Found notes with the tag:")
-                        for key, found_note in found_notes.items():
-                            print(f"Key: {key}, Content: {found_note.content.value}")
-
-                        key_to_delete = input(f"{RED}Enter the key of the note you want to delete: {RESET}")
-                        if key_to_delete in found_notes:
-                            del note[key_to_delete]
-                            print(f'{YELLOW}Note with key {key_to_delete} deleted {RESET}')
-                        else:
-                            print(f"{RED}Invalid key. No note deleted.")
->>>>>>> a66e5901c858636b8d7f1760d5a19915607277bc
                     else:
                         print(f"{RED} No such ID")
                 elif input_data == 'find by content' or input_data == 'fc':
@@ -348,16 +290,9 @@ def start_bot():
                 elif input_data == 'find':
                     notepad_dict.find(input(f"{GREEN}Enter text to search: {RESET}"))
                 else:
-<<<<<<< HEAD
                     print(f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
                 
         elif data == 'interacting with applications' or data == 'iwa':
-=======
-                    print(
-                        f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
-
-        elif data == 'interacting with applications':
->>>>>>> a66e5901c858636b8d7f1760d5a19915607277bc
             while True:
                 input_data = input(f"{FLY_BLUE}[interacting with applications] {RESET}| {GREEN}Enter command: {RESET}")
                 if input_data == "exit":
@@ -386,15 +321,9 @@ def start_bot():
                 elif input_data == 'find':
                     filename_different_dict.get_found(input(f"{GREEN}Search word:{RESET}"))
                 else:
-<<<<<<< HEAD
                     print(f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
                 
         
-=======
-                    print(
-                        f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
-
->>>>>>> a66e5901c858636b8d7f1760d5a19915607277bc
         elif data == "help":
             help_info()
 
