@@ -110,7 +110,8 @@ def start_bot():
     filename_address_book = os.path.join(base_path, "..", "files", "save_contacts.bin")
     filename_note_book = os.path.join(base_path, "..", "files", "save_notes.bin")
     filename_notepad_book = os.path.join(base_path, "..", "files", "save_notepad.bin")
-    filename_different_dict = src.different.get_dict()
+    filename_different_dict = os.path.join(base_path, "..", "files", "save_different.bin")
+    #filename_different_dict = different.get_dict()
 
     try:
         book = src.address_book.read_from_file(filename_address_book)
@@ -128,6 +129,7 @@ def start_bot():
     except Exception:
         notepad_dict = Notepad_dict()
         
+    different_dict = src.different.get_dict()
     
     PROGRAM_STATUS = True
 
@@ -171,7 +173,7 @@ def start_bot():
                         elif input_data == "add":
                             name = input(f"{GREEN}Enter name: {RESET}")
                             if (name):
-                                record = address_book.Record(name)
+                                record = src.address_book.Record(name)
                                 phone = input(f"{GREEN}Enter phone number (or press 'Enter' to continue): {RESET}")
                                 if phone:
                                     record.add_phone(phone)
@@ -248,7 +250,7 @@ def start_bot():
                             # Создание новой заметки и добавление её в NoteBook
                             new_tag = input(f"{GREEN}Enter tags: {RESET}")
                             new_content = str(input(f"{GREEN}Enter content: {RESET}"))
-                            note.add_note(notes.Note(new_content, [new_tag]))
+                            note.add_note(src.notes.Note(new_content, [new_tag]))
                             note.save_pickle(filename_note_book)
                         elif input_data == 'edit tag':
                             # Код для редактирования тегов заметки
@@ -374,7 +376,7 @@ def start_bot():
                         input_data.lower()
                         if input_data == "exit":
                             PROGRAM_STATUS = False
-                            filename_different_dict.save_to_file(filename_different_dict)
+                            different_dict.save_to_file(filename_different_dict)
                             break
                         elif input_data == 'main menu' or input_data == 'back':
                             print(f"{YELLOW} You have returned to the main menu.")
@@ -382,21 +384,22 @@ def start_bot():
                         elif input_data == 'help':
                             help_interacting_with_applications()
                         elif input_data == 'all':
-                            filename_different_dict.get_all()
+                            different_dict.get_all()
                         elif input_data == 'add descr':
                             try:
-                                filename_different_dict[input(f"{GREEN}File name:{RESET}")].add_description()
+                                different_dict[input(f"{GREEN}File name:{RESET}")].add_description()
                             except KeyError:
                                 print(f"{RED}this file is not exist.{RESET}")
                         elif input_data == 'play':
                             try:
-                                filename_different_dict[input(f"{GREEN}File name:{RESET}")].open_different()
+                                comanda = input(f"{GREEN}File name:{RESET}")
+                                different_dict[comanda].open_different()
                             except KeyError:
                                 print(f"{RED}this file is not exist.{RESET}")
                         elif input_data == 'look type':
-                            filename_different_dict.get_all_type(input(f"{GREEN}File type(audio, video...):{RESET}"))
+                            different_dict.get_all_type(input(f"{GREEN}File type(audio, video...):{RESET}"))
                         elif input_data == 'find':
-                            filename_different_dict.get_found(input(f"{GREEN}Search word:{RESET}"))
+                            different_dict.get_found(input(f"{GREEN}Search word:{RESET}"))
                         else:
                             print(f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
                     except:
@@ -409,6 +412,7 @@ def start_bot():
                 book.save_to_file(filename_address_book)
                 note.save_pickle(filename_note_book)
                 notepad_dict.save_to_file(filename_notepad_book)
+                different_dict.save_to_file(filename_different_dict)
                 PROGRAM_STATUS = False
 
             else:

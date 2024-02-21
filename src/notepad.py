@@ -3,9 +3,6 @@ import os
 from src.address_book import Field
 import pickle
 
-
-##***************************************  ЦЕ САМ МОДУЛЬ **************************************************************
-
 # Color text ON
 # RED = "\033[91m"
 # GREEN = "\033[92m"
@@ -83,8 +80,6 @@ class Notepad_dict(UserDict):
         os.remove(self[name].file)
         del self[name]
 
-
-
     def save_to_file(self,filename):
         with open(filename, 'wb') as fh:
             pickle.dump(self, fh)
@@ -102,7 +97,7 @@ class Notepad_dict(UserDict):
 
 #----------відкриття або створення notepad_dict------
 
-path_different= "\\my_dir"
+path_different= "..\\my_dir"
 
 
 #-----------------ця частина робится один раз, створюються всі необхідні папки---
