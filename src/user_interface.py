@@ -2,11 +2,14 @@
     User Interface Modul
 """
 
+import os
 import address_book
 import notes
 import notepad
 import files
+import different
 from notepad import Notepad_dict
+from different import Different_dict
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -22,7 +25,7 @@ def help_info():
             f'-{YELLOW} "record contact" or "contact" {BLUE} - Interacting with contacts.{RESET}\n'
             f'-{YELLOW} "record note" or "note" {BLUE} - Interacting with notes.{RESET}\n'
             f'-{YELLOW} "notepad" {BLUE} - Opening a text document for your notes.{RESET}\n'
-            f'-{YELLOW} interacting with applications {BLUE} - Turning on the music player, video player.{RESET}\n'
+            f'-{YELLOW} "interacting with applications" or "iwa" {BLUE} - Turning on the music player, video player.{RESET}\n'
             f'-{YELLOW} "help" {BLUE} - Help{RESET}\n'
             f'-{YELLOW} "exit"  {BLUE} - Exit from program.\n{RESET}')
 
@@ -42,7 +45,6 @@ def help_record_note():
             f"-{YELLOW} 'add' or 'add content' {BLUE} - Add a note.{RESET}\n"
             f"-{YELLOW} 'edit content' or 'ec' {BLUE} - Edit note text.{RESET}\n"
             f"-{YELLOW} 'edit tag' or 'et' {BLUE} - Edit tag.{RESET}\n"
-            f"-{YELLOW} 'remove content' or 'rc' {BLUE} - Delete note text.{RESET}\n"
             f"-{YELLOW} 'remove tag' or 'rt' {BLUE} - Delete tag.{RESET}\n"
             f"-{YELLOW} 'remove note' or 'rn' {BLUE} - Delete note.{RESET}\n"
             f"-{YELLOW} 'find by content' or 'fc' {BLUE} - Search within note text.{RESET}\n"
@@ -77,7 +79,7 @@ def help_interacting_with_applications():
             f"-{YELLOW} exit  {BLUE} - exit from program\n{RESET}")
 
 def start_bot():
-    print(f'{YELLOW}Hello! I`m your personal assistant! To finish working please enter {RED}"exit"{YELLOW}. To view all commands please enter "Help"{RESET}')
+    print(f'{YELLOW}Hello! I`m your personal assistant! To finish working please enter {RED}"exit"{YELLOW}. To view all commands please enter "help"{RESET}')
 
     filename_address_book = "files\\save_contacts.bin"
     filename_note_book = "files\\save_notes.bin"
@@ -98,6 +100,8 @@ def start_bot():
         notepad_dict = notepad.read_from_file(filename_notepad_book)
     except Exception:
         notepad_dict = Notepad_dict()
+    
+    filename_different_dict= different.get_dict()
     
     PROGRAM_STATUS = True
 
@@ -202,27 +206,22 @@ def start_bot():
                 elif input_data == 'remove tag' or input_data == 'rt':
                     # Код для удаления тегов заметки
                     delete_teg = input(f"{GREEN}Enter name tag dor delete: {RESET}")
-                    note.edit_tag_by_old_value(delete_teg, [])
-                    note.save_pickle(filename_note_book)
-                    print(f"{YELLOW}You delete tag '{delete_teg}'{RESET}")
+                    found_notes = note.find_by_tag(delete_teg)
+                    if found_notes:
+                        note.edit_tag_by_old_value(delete_teg, [])
+                        note.save_pickle(filename_note_book)
+                        print(f"{YELLOW}You delete tag '{delete_teg}'{RESET}")
+                    else:
+                        print(f"{RED} No such tag")
                 elif input_data == 'remove note' or input_data == 'rn':
                     # Код для удаления заметки
-                    tag_to_search = input(f"{GREEN}Enter the tag: {RESET}")
-                    found_notes = note.find_by_tag(tag_to_search)
-                    if found_notes:
-                        print("Found notes with the tag:")
-                        for key, found_note in found_notes.items():
-                            print(f"Key: {key}, Content: {found_note.content.value}")
-                            
-                        key_to_delete = input(f"{RED}Enter the key of the note you want to delete: {RESET}")
-                        if key_to_delete in found_notes:
-                            del note[key_to_delete]
-                            print(f'{YELLOW}Note with key {key_to_delete} deleted {RESET}')
-                        else:
-                            print(f"{RED}Invalid key. No note deleted.")
+                    delete_id = input(f"{GREEN}Enter ID notes: {RESET}")
+                    if delete_id in note.data:
+                        note.remove_note(note.data[delete_id])
+                        note.save_pickle(filename_note_book)
+                        print(f"{YELLOW}Заметка с ID {delete_id} удалена.{RESET}")
                     else:
-                        print(f"{RED}No notes found with tag '{tag_to_search}'.")
-                    note.save_pickle(filename_note_book)
+                        print(f"{RED} No such ID")
                 elif input_data == 'find by content' or input_data == 'fc':
                     # Код для поиска заметок по содержимому
                     find_by_content = input(f"{GREEN}Enter the words that are in the text: {RESET}")
@@ -286,19 +285,37 @@ def start_bot():
                 else:
                     print(f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
                 
-        elif data == 'interacting with applications':
+        elif data == 'interacting with applications' or data == 'iwa':
             while True:
                 input_data = input(f"{FLY_BLUE}[interacting with applications] {RESET}| {GREEN}Enter command: {RESET}")
                 if input_data == "exit":
                     PROGRAM_STATUS = False
+                    filename_different_dict.save_to_file(filename_different_dict)
                     break
                 elif input_data == 'main menu' or input_data == 'back':
                     print(f"{YELLOW} You have returned to the main menu.")
                     break
                 elif input_data == 'help':
                     help_interacting_with_applications()
+                elif input_data == 'all':
+                    filename_different_dict.get_all()
+                elif input_data == 'add descr':
+                    try:
+                        filename_different_dict[input(f"{GREEN}File name:{RESET}")].add_description()
+                    except KeyError:
+                        print(f"{RED}this file is not exist.{RESET}")
+                elif input_data == 'play':
+                    try:
+                        filename_different_dict[input(f"{GREEN}File name:{RESET}")].open_different()
+                    except KeyError:
+                        print(f"{RED}this file is not exist.{RESET}")
+                elif input_data == 'look type':
+                    filename_different_dict.get_all_type(input(f"{GREEN}File type(audio, video...):{RESET}"))
+                elif input_data == 'find':
+                    filename_different_dict.get_found(input(f"{GREEN}Search word:{RESET}"))
                 else:
                     print(f'{RED}Command "{input_data}" not found. The following command will "help" you know what the commands are.')
+                
         
         elif data == "help":
                 help_info()
