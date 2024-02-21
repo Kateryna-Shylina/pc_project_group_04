@@ -16,13 +16,13 @@ from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.history import InMemoryHistory
 
 # Color text ON
-RED = "\033[91m"
-GREEN = "\033[92m"
-YELLOW = "\033[93m"
-RESET = "\033[0m"
-BLUE = "\033[94m"
-FLY_BLUE = "\033[38;5;117m"
-PURPURE = "\033[35m"
+# RED = "\033[91m"
+# GREEN = "\033[92m"
+# YELLOW = "\033[93m"
+# RESET = "\033[0m"
+# BLUE = "\033[94m"
+# FLY_BLUE = "\033[38;5;117m"
+# PURPURE = "\033[35m"
 
 # Color text OFF
 RED = ""

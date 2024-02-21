@@ -6,11 +6,23 @@ from datetime import datetime
 import pickle
 import re
 
-RED = "\033[91m"
-GREEN = "\033[92m"
-YELLOW = "\033[93m"
-RESET = "\033[0m"
-BLUE = "\033[94m"
+# Color text ON
+# RED = "\033[91m"
+# GREEN = "\033[92m"
+# YELLOW = "\033[93m"
+# RESET = "\033[0m"
+# BLUE = "\033[94m"
+# FLY_BLUE = "\033[38;5;117m"
+# PURPURE = "\033[35m"
+
+# Color text OFF
+RED = ""
+GREEN = ""
+YELLOW = ""
+RESET = ""
+BLUE = ""
+FLY_BLUE = ""
+PURPURE = ""
 
 def read_from_file(file):
     with open(file, 'rb') as fh:
@@ -246,7 +258,6 @@ class AddressBook(UserDict):
                 sb = f"  {GREEN}{record.birthday}{RESET}" if record.birthday else ""
                 se = f"  {GREEN}{record.email}{RESET}" if record.email else ""    
                 birthday_people_list.append(f"{GREEN} {record.name.value:<8} {sb:<12} {sp:<12} {se:<20}")   
-                          
         if (birthday_people_list):
             print(f"{GREEN}Today is the birthday of some of your friends, congratulate them:")
             print(f"{GREEN}{'\n'.join(person for person in birthday_people_list)}")
