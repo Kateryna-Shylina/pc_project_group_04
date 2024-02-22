@@ -4,19 +4,19 @@ from src.address_book import Field
 import pickle
 #from address_book import read_from_file
 
+# Color text ON
+# RED = "\033[91m"
+# GREEN = "\033[92m"
+# YELLOW="\033[93m"
+# RESET = "\033[0m"
+# BLUE = "\033[94m"
 
-
-RED = "\033[91m"
-GREEN = "\033[92m"
-YELLOW="\033[93m"
-RESET = "\033[0m"
-BLUE = "\033[94m"
-
-
-
-
-
-
+# Color text OFF
+RED = ""
+GREEN = ""
+YELLOW = ""
+RESET = ""
+BLUE = ""
 
 class Different(Field):
 
@@ -45,9 +45,10 @@ class Different(Field):
             return (f"{BLUE} dir:{YELLOW} {self.topic},{BLUE} name:{YELLOW} {self.name}, {BLUE}description:{YELLOW} {self.describe}{RESET}")
 
 
-
 class Different_dict(UserDict):
-    filename=os.path.join("..\\files", "save_different.bin")
+    base_path = os.path.dirname(__file__)
+    filename = os.path.join(base_path, "..", "files", "save_different.bin")
+    #filename=os.path.join("..\\files", "save_different.bin")
 
     
     def add_different(self, name, topic):
@@ -69,21 +70,17 @@ class Different_dict(UserDict):
             if txt in self[n].name or txt in self[n].describe:
                 print(self[n])
 
-
-
     def save_to_file(self, filename):
         with open(filename, 'wb') as fh:
             pickle.dump(self, fh)
 
 
-
 def check_different_files():
     list_files=dict()
     for d in topics:
-
         list_files[d]=os.listdir((os.path.join(path_different, d)) )
 
-        for fil in  list_files[d]:
+        for fil in list_files[d]:
             if fil in different_dict:
                 pass
             else:
@@ -101,14 +98,11 @@ def check_different_files():
         if different_dict[fil].describe !="del":
             different_dict_after[fil]=different_dict[fil]
 
-
-
-
-path_different= "..\\my_dir"
-
+base_path1 = os.path.dirname(__file__)
+path_different = os.path.join(base_path1, "..", "my_dir")
+#path_different= "..\\my_dir"
 
 #-----------------ця частина робится один раз, створюються всі необхідні папки---
-
 
 topics= ["video", "audio", "python", "photos","notes"]
 
@@ -125,7 +119,9 @@ def read_from_file(file):
     with open(file, 'rb') as fh:
         return pickle.load(fh)
 
-filename=os.path.join("..\\files", "save_different.bin")
+base_path = os.path.dirname(__file__)
+filename = os.path.join(base_path, "..", "files", "save_different.bin")
+#filename=os.path.join("..\\files", "save_different.bin")
 try:
     different_dict = read_from_file(filename)
 except Exception:
@@ -135,7 +131,6 @@ except Exception:
 topics= ["video", "audio", "python", "photos"]
 
 
-
 # при запуску
 different_dict_after = Different_dict()
 check_different_files()
@@ -143,18 +138,6 @@ different_dict=different_dict_after
 def get_dict():
     return different_dict
 
-
-
-
-# different_dict.get_all()
-# different_dict.get_all_type("audio")
-# different_dict.get_found("4994")
-
-# different_dict.get_found("нарц")
-# # different_dict[input("iмя файла:")].add_description()
-# # different_dict[input("iмя файла:")].open_different()
-# different_dict.get_all()
-# different_dict.save_to_file()
 
 
 
